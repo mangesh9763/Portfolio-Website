@@ -1,14 +1,29 @@
 import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
 import "./styles/SocialIcons.css";
 import { TbNotes } from "react-icons/tb";
-import { useEffect } from "react";
+import { useEffect, type MouseEvent as ReactMouseEvent } from "react";
 import HoverLinks from "./HoverLinks";
 import { MdEmail } from "react-icons/md";
 import { profile } from "../data/profile";
 
 const SocialIcons = () => {
+  const handleEmailClick = (event: ReactMouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.pushState(null, "", "#contact");
+      return;
+    }
+
+    window.location.hash = "contact";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
-    const social = document.getElementById("social") as HTMLElement;
+    const social = document.getElementById("social");
+    if (!social) return;
 
     social.querySelectorAll("span").forEach((item) => {
       const elem = item as HTMLElement;
@@ -30,7 +45,7 @@ const SocialIcons = () => {
         requestAnimationFrame(updatePosition);
       };
 
-      const onMouseMove = (e: MouseEvent) => {
+      const onMouseMove = (e: globalThis.MouseEvent) => {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
@@ -67,16 +82,7 @@ const SocialIcons = () => {
           </a>
         </span>
         <span>
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("contact")?.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-              });
-            }}
-          >
+          <a href="#contact" onClick={handleEmailClick}>
             <MdEmail />
           </a>
         </span>
