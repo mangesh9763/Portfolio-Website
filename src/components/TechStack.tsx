@@ -1,4 +1,4 @@
-import "./styles/TechStack.css"; // ← ADD THIS LINE
+import "./styles/Techstack.css"; // ← ADD THIS LINE
 import * as THREE from "three";
 import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
