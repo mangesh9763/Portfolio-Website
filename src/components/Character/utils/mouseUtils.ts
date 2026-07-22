@@ -43,40 +43,58 @@ export const handleHeadRotation = (
   lerp: (x: number, y: number, t: number) => number
 ) => {
   if (!headBone) return;
+
+  const maxRotation = Math.PI / 4;
+  
+  // More responsive to mouse movement
+  const targetY = mouseX * maxRotation * 1.2;
+  const targetX = -mouseY * maxRotation * 0.8;
+
   if (window.scrollY < 200) {
-    const maxRotation = Math.PI / 6;
-    headBone.rotation.y = lerp(
-      headBone.rotation.y,
-      mouseX * maxRotation,
-      interpolationY
-    );
-    let minRotationX = -0.3;
-    let maxRotationX = 0.4;
-    if (mouseY > minRotationX) {
-      if (mouseY < maxRotationX) {
-        headBone.rotation.x = lerp(
-          headBone.rotation.x,
-          -mouseY - 0.5 * maxRotation,
-          interpolationX
-        );
-      } else {
-        headBone.rotation.x = lerp(
-          headBone.rotation.x,
-          -maxRotation - 0.5 * maxRotation,
-          interpolationX
-        );
-      }
-    } else {
-      headBone.rotation.x = lerp(
-        headBone.rotation.x,
-        -minRotationX - 0.5 * maxRotation,
-        interpolationX
-      );
-    }
+    // Smooth following of mouse
+    headBone.rotation.y = lerp(headBone.rotation.y, targetY, interpolationY);
+    headBone.rotation.x = lerp(headBone.rotation.x, targetX, interpolationX);
   } else {
-    if (window.innerWidth > 1024) {
-      headBone.rotation.x = lerp(headBone.rotation.x, -0.4, 0.03);
-      headBone.rotation.y = lerp(headBone.rotation.y, -0.3, 0.03);
-    }
+    // When scrolled, look slightly forward and neutral
+    const defaultY = 0;
+    const defaultX = -0.15;
+    headBone.rotation.x = lerp(headBone.rotation.x, defaultX, 0.03);
+    headBone.rotation.y = lerp(headBone.rotation.y, defaultY, 0.03);
   }
+};
+
+// New function for color changes
+export const handleModelColor = (
+  model: THREE.Object3D,
+  mouseX: number,
+  mouseY: number
+) => {
+  if (!model) return;
+
+  // Create color based on mouse position
+  const hue = (mouseX + 1) / 2; // 0 to 1
+  const saturation = 0.8;
+  const lightness = 0.5;
+  
+  const color = new THREE.Color().setHSL(hue, saturation, lightness);
+
+  // Apply color to all meshes in model
+  model.traverse((child) => {
+    if (child instanceof THREE.Mesh && child.material) {
+      if (Array.isArray(child.material)) {
+        child.material.forEach((mat: any) => {
+          if (mat.emissive) {
+            mat.emissive = color;
+            mat.emissiveIntensity = 0.3 + Math.abs(mouseY) * 0.3;
+          }
+        });
+      } else {
+        const mat = child.material as any;
+        if (mat.emissive) {
+          mat.emissive = color;
+          mat.emissiveIntensity = 0.3 + Math.abs(mouseY) * 0.3;
+        }
+      }
+    }
+  });
 };

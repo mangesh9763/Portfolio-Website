@@ -5,6 +5,7 @@
   position: relative;
   height: var(--vh);
 }
+
 .landing-container {
   width: var(--cWidth);
   margin: auto;
@@ -12,6 +13,7 @@
   position: relative;
   max-width: var(--cMaxWidth);
 }
+
 .landing-circle1 {
   top: 0%;
   left: 0%;
@@ -25,6 +27,7 @@
   border-radius: 50%;
   animation: loadingCircle 5s linear infinite;
 }
+
 .nav-fade {
   position: fixed;
   top: 0;
@@ -40,6 +43,7 @@
   opacity: 0;
   left: 0;
 }
+
 @keyframes loadingCircle {
   0% {
     transform: translate(-95%, -75%) rotateZ(0deg);
@@ -64,11 +68,13 @@
   border-radius: 50%;
   animation: loadingCircle2 5s linear infinite;
 }
+
 @keyframes loadingCircle2 {
   100% {
     transform: translate(calc(100% - 2px), -50%) rotate(360deg);
   }
 }
+
 .landing-video,
 .landing-image {
   position: absolute;
@@ -77,11 +83,13 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
 .landing-image img {
   height: 100%;
   z-index: 2;
   position: relative;
 }
+
 .character-rim {
   position: absolute;
   width: 400px;
@@ -97,6 +105,7 @@
   transform: translate(-50%, 100%) scale(1.4);
   opacity: 0;
 }
+
 .character-model {
   height: 80%;
   height: 80vh;
@@ -110,6 +119,7 @@
   bottom: 50px;
   pointer-events: inherit;
 }
+
 .character-model::after {
   content: "";
   width: 100vw;
@@ -125,6 +135,7 @@
   z-index: 9;
   position: absolute;
 }
+
 .character-model::before {
   content: "";
   width: 100vw;
@@ -136,16 +147,19 @@
   z-index: 9;
   position: absolute;
 }
+
 .character-loaded .character-rim {
   animation: backlight 3s forwards;
   animation-delay: 0.3s;
   opacity: 0;
 }
+
 .character-model canvas {
   position: relative;
   pointer-events: none;
   z-index: 2;
 }
+
 .character-hover {
   position: absolute;
   width: 280px;
@@ -156,12 +170,15 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
 }
+
+/* LANDING INTRO */
 .landing-intro {
   position: absolute;
   z-index: 9;
   top: 12%;
   left: 0;
 }
+
 .landing-intro h2 {
   margin: 0;
   color: var(--accentColor);
@@ -179,10 +196,7 @@
   font-family: "Geist", sans-serif;
 }
 
-/* .landing-intro h1 span {
-   font-weight: 200; 
-} */
-
+/* LANDING INFO - EXACT MONCY STRUCTURE */
 .landing-info {
   position: absolute;
   right: 50%;
@@ -190,46 +204,108 @@
   bottom: 40px;
   top: inherit;
   z-index: 9;
+  overflow: visible;
 }
+
 .landing-info h3 {
   font-size: 22px;
   letter-spacing: 2px;
   font-weight: 300;
   color: var(--accentColor);
   margin: 0;
+  text-transform: uppercase;
 }
+
 .landing-info h2 {
   margin: 0;
-  margin-top: -20px;
-  margin-left: 20px;
+  margin-top: 0;
+  margin-left: 0;
   font-family: "Geist", sans-serif;
   font-weight: 600;
   font-size: 32px;
   line-height: 40px;
   position: relative;
-  display: flex;
-  flex-wrap: nowrap;
   text-transform: uppercase;
   letter-spacing: 2px;
+  min-height: 50px;
+  overflow: visible;
+  width: max-content;
+  color: #ffffff;
 }
-.landing-h2-info-1 {
-  position: absolute;
-  top: 0;
-}
+
 h2.landing-info-h2 {
-  color: #c481ff;
-  font-size: 42px;
-  width: 120%;
+  background: linear-gradient(135deg, #c481ff 0%, #fb8dff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0;
   font-family: "Geist", sans-serif;
   font-weight: 600;
   position: relative;
-  margin-left: -5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  min-height: 50px;
+  overflow: visible;
+  font-size: 42px;
+  width: max-content;
 }
+
+.landing-h2-1,
 .landing-h2-2 {
   position: absolute;
   top: 0;
+  left: 0;
+  opacity: 0;
+  animation: titleSwap 8s infinite ease-in-out;
+  width: max-content;
+  white-space: nowrap;
 }
+
+.landing-h2-1 {
+  animation-delay: 0s;
+  opacity: 1;
+}
+
+.landing-h2-2 {
+  animation-delay: 4s;
+}
+
+.landing-h2-info,
+.landing-h2-info-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  animation: titleSwap 8s infinite ease-in-out;
+  width: max-content;
+  white-space: nowrap;
+}
+
+.landing-h2-info {
+  animation-delay: 0s;
+  opacity: 1;
+  color: #ffffff;
+}
+
+.landing-h2-info-1 {
+  animation-delay: 4s;
+  color: #ffffff;
+}
+
+@keyframes titleSwap {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .landing-info-h2::after {
   content: "";
   position: absolute;
@@ -244,53 +320,68 @@ h2.landing-info-h2 {
   top: 0;
   left: 0;
 }
+
+/* RESPONSIVE */
 @media screen and (min-width: 500px) {
   .landing-circle2 {
     display: block;
   }
+
   .character-model {
     z-index: 0;
   }
+
   .landing-info h3 {
     font-size: 18px;
   }
+
   .landing-intro h2 {
     font-size: 18px;
   }
+
   .landing-intro h1 {
     font-size: 30px;
     line-height: 30px;
   }
+
   .landing-info h2 {
     font-size: 35px;
     line-height: 40px;
   }
+
   h2.landing-info-h2 {
     font-size: 38px;
   }
 }
+
 @media screen and (min-width: 768px) {
   .character-model {
     height: 80vh;
   }
+
   .landing-intro h2 {
     font-size: 25px;
   }
+
   .landing-intro h1 {
     font-size: 40px;
     line-height: 35px;
   }
+
   .landing-info h3 {
     font-size: 25px;
   }
+
   .landing-info h2 {
     font-size: 45px;
     line-height: 42px;
   }
+
   h2.landing-info-h2 {
     font-size: 55px;
   }
 }
+
 @media screen and (min-width: 1025px) {
   .character-model {
     height: 100vh;
@@ -298,10 +389,12 @@ h2.landing-info-h2 {
     z-index: 11;
     position: fixed;
   }
+
   .character-model::after,
   .character-model::before {
     display: none;
   }
+
   .landing-intro {
     top: 50%;
     left: auto;
@@ -317,8 +410,10 @@ h2.landing-info-h2 {
     transform: translate(0%, -50%);
     right: auto;
     left: 66%;
+    overflow: visible;
   }
 }
+
 @media screen and (min-width: 1200px) {
   .landing-intro {
     top: 50%;
@@ -335,23 +430,29 @@ h2.landing-info-h2 {
     transform: translate(0%, -50%);
     right: auto;
     left: 70%;
+    overflow: visible;
   }
 }
+
 @media screen and (min-width: 1600px) {
   .landing-intro h2 {
     font-size: 35px;
   }
+
   .landing-intro h1 {
     font-size: 60px;
     line-height: 55px;
   }
+
   .landing-info h3 {
     font-size: 35px;
   }
+
   .landing-info h2 {
     font-size: 65px;
     line-height: 62px;
   }
+
   h2.landing-info-h2 {
     font-size: 75px;
   }

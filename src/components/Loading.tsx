@@ -4,6 +4,7 @@ import { useLoading } from "../context/LoadingProvider";
 
 import Marquee from "react-fast-marquee";
 import { profile } from "../data/profile";
+import { getPublicAssetUrl } from "../utils/publicAsset";
 
 const Loading = ({ percent }: { percent: number }) => {
   const { setIsLoading } = useLoading();
@@ -11,28 +12,51 @@ const Loading = ({ percent }: { percent: number }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  if (percent >= 100) {
-    setTimeout(() => {
+  useEffect(() => {
+    if (percent < 100) {
+      return;
+    }
+
+    let timeout2: number | undefined;
+    const timeout1 = window.setTimeout(() => {
       setLoaded(true);
-      setTimeout(() => {
+      timeout2 = window.setTimeout(() => {
         setIsLoaded(true);
       }, 1000);
     }, 600);
-  }
+
+    return () => {
+      if (timeout1 !== undefined) {
+        window.clearTimeout(timeout1);
+      }
+      if (timeout2 !== undefined) {
+        window.clearTimeout(timeout2);
+      }
+    };
+  }, [percent]);
 
   useEffect(() => {
+    if (!isLoaded) {
+      return;
+    }
+
+    let timeout: number | undefined;
     import("./utils/initialFX").then((module) => {
-      if (isLoaded) {
-        setClicked(true);
-        setTimeout(() => {
-          if (module.initialFX) {
-            module.initialFX();
-          }
-          setIsLoading(false);
-        }, 900);
-      }
+      setClicked(true);
+      timeout = window.setTimeout(() => {
+        if (module.initialFX) {
+          module.initialFX();
+        }
+        setIsLoading(false);
+      }, 900);
     });
-  }, [isLoaded]);
+
+    return () => {
+      if (timeout !== undefined) {
+        window.clearTimeout(timeout);
+      }
+    };
+  }, [isLoaded, setIsLoading]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
     const { currentTarget: target } = e;
@@ -46,7 +70,7 @@ const Loading = ({ percent }: { percent: number }) => {
   return (
     <>
       <div className="loading-header">
-        <a href="/#" className="loader-title" data-cursor="disable">
+        <a href={getPublicAssetUrl("/")} className="loader-title" data-cursor="disable">
           {profile.initials}
         </a>
         <div className={`loaderGame ${clicked && "loader-out"}`}>
@@ -100,7 +124,7 @@ export const setProgress = (setLoading: (value: number) => void) => {
 
   let interval = setInterval(() => {
     if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
+      const rand = Math.round(Math.random() * 5);
       percent = percent + rand;
       setLoading(percent);
     } else {

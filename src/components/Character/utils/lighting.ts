@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { RGBELoader } from "three-stdlib";
 import { gsap } from "gsap";
+import { getPublicAssetUrl } from "../../../utils/publicAsset";
 
 const setLighting = (scene: THREE.Scene) => {
   const directionalLight = new THREE.DirectionalLight(0xc7a9ff, 0);
@@ -19,7 +20,7 @@ const setLighting = (scene: THREE.Scene) => {
   scene.add(pointLight);
 
   new RGBELoader()
-    .setPath("/models/")
+    .setPath(getPublicAssetUrl("/models/"))
     .load("char_enviorment.hdr", function (texture) {
       texture.mapping = THREE.EquirectangularReflectionMapping;
       scene.environment = texture;
@@ -27,9 +28,15 @@ const setLighting = (scene: THREE.Scene) => {
       scene.environmentRotation.set(5.76, 85.85, 1);
     });
 
-  function setPointLight(screenLight: any) {
-    if (screenLight.material.opacity > 0.9) {
-      pointLight.intensity = screenLight.material.emissiveIntensity * 20;
+  function setPointLight(screenLight: THREE.Object3D | null) {
+    if (!screenLight || !("material" in screenLight)) {
+      pointLight.intensity = 0;
+      return;
+    }
+
+    const material = screenLight.material as THREE.MeshStandardMaterial | undefined;
+    if (material && material.opacity > 0.9) {
+      pointLight.intensity = (material.emissiveIntensity || 0) * 20;
     } else {
       pointLight.intensity = 0;
     }

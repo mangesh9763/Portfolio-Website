@@ -1,3 +1,5 @@
+import { getPublicAssetUrl } from "../utils/publicAsset";
+
 export const profile = {
   name: "Mangesh Panchal",
   initials: "MP",
@@ -6,7 +8,7 @@ export const profile = {
   phone: "+91 9763125923",
   github: "https://github.com/mangesh9763",
   linkedin: "https://www.linkedin.com/in/mangesh-panchal/",
-  resume: "/Mangesh-Panchal-Resume.pdf",
+  resume: getPublicAssetUrl("/Mangesh-Panchal-Resume.pdf"),
 };
 
 export const projects = [
@@ -14,12 +16,12 @@ export const projects = [
     name: "LaalPari",
     title: "Bus Tracking System",
     category: "Real-time GPS tracking",
-    image: "/images/project-slides/laalpari-home.png",
+    image: getPublicAssetUrl("/images/project-slides/laalpari-home.png"),
     slides: [
-      "/images/project-slides/laalpari-home.png",
-      "/images/project-slides/laalpari-buses.png",
-      "/images/project-slides/laalpari-map.png",
-      "/images/project-slides/laalpari-hero-alt.png",
+      getPublicAssetUrl("/images/project-slides/laalpari-home.png"),
+      getPublicAssetUrl("/images/project-slides/laalpari-buses.png"),
+      getPublicAssetUrl("/images/project-slides/laalpari-map.png"),
+      getPublicAssetUrl("/images/project-slides/laalpari-hero-alt.png"),
     ],
     live: "https://mangesh9763.github.io/LAALPARI/",
     code: "https://github.com/mangesh9763/LAALPARI.git",
@@ -30,12 +32,12 @@ export const projects = [
     name: "Zenith",
     title: "SGGS Annual Sports Website",
     category: "Event website",
-    image: "/images/project-slides/zenith-gameverse.png",
+    image: getPublicAssetUrl("/images/project-slides/zenith-gameverse.png"),
     slides: [
-      "/images/project-slides/zenith-gameverse.png",
-      "/images/project-slides/zenith-about.png",
-      "/images/project-slides/zenith-vip.png",
-      "/images/project-slides/zenith-intro.png",
+      getPublicAssetUrl("/images/project-slides/zenith-gameverse.png"),
+      getPublicAssetUrl("/images/project-slides/zenith-about.png"),
+      getPublicAssetUrl("/images/project-slides/zenith-vip.png"),
+      getPublicAssetUrl("/images/project-slides/zenith-intro.png"),
     ],
     live: "https://zenithsggs.in",
     tools:
@@ -45,13 +47,13 @@ export const projects = [
     name: "LiveFlow",
     title: "Blood Bank Management System",
     category: "React web app",
-    image: "/images/project-slides/lifeflow-dashboard.png",
+    image: getPublicAssetUrl("/images/project-slides/lifeflow-dashboard.png"),
     slides: [
-      "/images/project-slides/lifeflow-dashboard.png",
-      "/images/project-slides/lifeflow-inventory.png",
-      "/images/project-slides/lifeflow-requests.png",
-      "/images/project-slides/lifeflow-donors.png",
-      "/images/project-slides/lifeflow-users.png",
+      getPublicAssetUrl("/images/project-slides/lifeflow-dashboard.png"),
+      getPublicAssetUrl("/images/project-slides/lifeflow-inventory.png"),
+      getPublicAssetUrl("/images/project-slides/lifeflow-requests.png"),
+      getPublicAssetUrl("/images/project-slides/lifeflow-donors.png"),
+      getPublicAssetUrl("/images/project-slides/lifeflow-users.png"),
     ],
     live: "https://mangesh9763.github.io/lifeflow-blood-bank/",
     code: "https://github.com/mangesh9763/lifeflow-blood-bank.git",

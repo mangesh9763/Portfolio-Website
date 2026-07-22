@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MdArrowOutward, MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { getPublicAssetUrl } from "../utils/publicAsset";
 
 interface Props {
   image: string;
@@ -13,7 +14,12 @@ const WorkImage = (props: Props) => {
   const [isVideo, setIsVideo] = useState(false);
   const [video, setVideo] = useState("");
   const [slideIndex, setSlideIndex] = useState(0);
-  const slides = props.slides?.length ? props.slides : [props.image];
+  const [imageError, setImageError] = useState(false);
+
+  const slides = useMemo(() => {
+    const slideList = props.slides?.length ? props.slides : [props.image];
+    return slideList.map((slide) => getPublicAssetUrl(slide));
+  }, [props.image, props.slides]);
 
   useEffect(() => {
     if (slides.length <= 1) return;
@@ -24,19 +30,24 @@ const WorkImage = (props: Props) => {
     return () => window.clearInterval(interval);
   }, [slides.length]);
 
-  const handleMouseEnter = async () => {
+  useEffect(() => {
+    setImageError(false);
+  }, [slideIndex]);
+
+  const handleMouseEnter = () => {
     if (props.video) {
       setIsVideo(true);
-      const response = await fetch(`src/assets/${props.video}`);
-      const blob = await response.blob();
-      const blobUrl = URL.createObjectURL(blob);
-      setVideo(blobUrl);
+      setVideo(getPublicAssetUrl(props.video));
     }
   };
 
   const goToSlide = (index: number) => {
     setSlideIndex((index + slides.length) % slides.length);
   };
+
+  const imageSrc = imageError
+    ? getPublicAssetUrl("/images/placeholder.webp")
+    : slides[slideIndex];
 
   return (
     <div className="work-image">
@@ -54,7 +65,7 @@ const WorkImage = (props: Props) => {
             <MdArrowOutward />
           </div>
         )}
-        <img src={slides[slideIndex]} alt={props.alt} />
+        <img src={imageSrc} alt={props.alt} onError={() => setImageError(true)} />
         {isVideo && <video src={video} autoPlay muted playsInline loop></video>}
       </a>
       {slides.length > 1 && (

@@ -1,13 +1,16 @@
 {
-  "name": "moncy-portfolio",
+  "name": "mangesh-portfolio",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://mangesh9763.github.io/Portfolio-Website",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
@@ -19,7 +22,6 @@
     "@types/three": "^0.168.0",
     "@vercel/analytics": "^1.4.1",
     "gsap": "^3.12.7",
-    "gsap-trial": "^3.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-fast-marquee": "^1.6.5",

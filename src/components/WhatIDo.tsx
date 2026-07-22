@@ -87,7 +87,7 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>DEVELOP</h3>
+              <h3>DEVELOPER</h3>
               <h4>Full-stack web apps</h4>
               <p>
                 I build responsive websites and dashboards with clean user

@@ -9,6 +9,7 @@ import {
   handleTouchEnd,
   handleHeadRotation,
   handleTouchMove,
+  handleModelColor,
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
@@ -118,6 +119,9 @@ const Scene = () => {
             THREE.MathUtils.lerp
           );
           light.setPointLight(screenLight);
+        }
+        if (character) {
+          handleModelColor(character, mouse.x, mouse.y);
         }
         const delta = clock.getDelta();
         if (mixer) {

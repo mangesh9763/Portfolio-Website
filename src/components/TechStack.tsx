@@ -1,4 +1,4 @@
-import "./styles/Techstack.css"; // ← ADD THIS LINE
+import "./styles/Techstack.css";
 import * as THREE from "three";
 import { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -11,12 +11,13 @@ import {
   CylinderCollider,
   RapierRigidBody,
 } from "@react-three/rapier";
+import { getPublicAssetUrl } from "../utils/publicAsset";
 
 const textureLoader = new THREE.TextureLoader();
 const imageUrls = [
-  "/images/react2.webp",
-  "/images/mysql.webp",
-  "/images/javascript.webp",
+  getPublicAssetUrl("/images/react2.webp"),
+  getPublicAssetUrl("/images/mysql.webp"),
+  getPublicAssetUrl("/images/javascript.webp"),
 ];
 const textures = imageUrls.map((url) => textureLoader.load(url));
 
@@ -195,7 +196,7 @@ const TechStack = () => {
           ))}
         </Physics>
         <Environment
-          files="/models/char_enviorment.hdr"
+          files={getPublicAssetUrl("/models/char_enviorment.hdr")}
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />
