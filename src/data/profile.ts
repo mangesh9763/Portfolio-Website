@@ -8,7 +8,7 @@ export const profile = {
   phone: "+91 9763125923",
   github: "https://github.com/mangesh9763",
   linkedin: "https://www.linkedin.com/in/mangesh-panchal/",
-  resume: getPublicAssetUrl("/Mangesh-Panchal-Resume.pdf"),
+  resume: getPublicAssetUrl('/mangeshpanchal9763125923.pdf'),
 };
 
 export const projects = [
